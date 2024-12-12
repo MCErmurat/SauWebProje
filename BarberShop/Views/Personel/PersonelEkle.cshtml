@@ -1,0 +1,69 @@
+﻿@model BarberShop.Models.Personel
+<div class="alert-danger">@TempData["msj"]</div>
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="PerKaydet">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="PersonelID" class="control-label"></label>
+                <input asp-for="PersonelID" class="form-control" />
+                <span asp-validation-for="PersonelID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PersonelAd" class="control-label"></label>
+                <input asp-for="PersonelAd" class="form-control" />
+                <span asp-validation-for="PersonelAd" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PersonelSoyad" class="control-label"></label>
+                <input asp-for="PersonelSoyad" class="form-control" />
+                <span asp-validation-for="PersonelSoyad" class="text-danger"></span>
+            </div>
+            <div id="hizmetler-container">
+                <h4>Hizmetler</h4>
+                <div id="hizmet-template" class="form-group d-none">
+                    <label for="HizmetAd">Hizmet Ad</label>
+                    <input type="text" name="Hizmetler[INDEX].Ad" class="form-control" placeholder="Hizmet Adı" />
+
+                    <label for="HizmetUcret">Hizmet Ücret</label>
+                    <input type="number" name="Hizmetler[INDEX].Ucret" class="form-control" placeholder="Ücret" />
+                </div>
+
+                <div id="hizmet-list">
+                    <!-- Dinamik olarak hizmet alanları buraya eklenecek -->
+                </div>
+                <button type="button" id="add-hizmet-btn" class="btn btn-secondary">Hizmet Ekle</button>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Ekle" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="PersonelList">Listeye Git</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        let hizmetIndex = 0;
+
+        document.getElementById('add-hizmet-btn').addEventListener('click', function () {
+            const container = document.getElementById('hizmet-list');
+            const template = document.getElementById('hizmet-template').cloneNode(true);
+
+            // İndeks güncellemesi
+            template.innerHTML = template.innerHTML.replace(/INDEX/g, hizmetIndex);
+            template.classList.remove('d-none');
+
+            container.appendChild(template);
+            hizmetIndex++;
+        });
+    </script>
+}

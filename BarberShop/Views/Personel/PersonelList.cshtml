@@ -1,0 +1,55 @@
+﻿@model IEnumerable<BarberShop.Models.Personel>
+<div class="alert-danger">@TempData["msj"]</div>
+
+@if (Model.Count() < 1)
+{
+    <div style="text-align:center" class="alert-info">Herhangi Bir Personel Yok</div>
+}{
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PersonelID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PersonelAd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PersonelSoyad)
+            </th>
+            <th>Hizmetler</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var personel in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => personel.PersonelID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => personel.PersonelAd)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => personel.PersonelSoyad)
+                </td>
+                <td>
+                    @if (personel.Hizmetler.Any())
+                    {
+                        <ul>
+                            @foreach (var hizmet in personel.Hizmetler)
+                            {
+                                <li>@hizmet.Ad - @hizmet.Ucret TL</li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <span>Hizmet yok</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+}
