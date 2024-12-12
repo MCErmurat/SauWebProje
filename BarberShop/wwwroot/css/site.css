@@ -1,0 +1,37 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+/* Tüm Sayfa Yapýsý */
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column; /* Header, içerik ve footer sýralamasý */
+    height: 100vh; /* Sayfa yüksekliði */
+}
+
+/* Ýçerik Alaný (Arka Plan Resmi Burada) */
+.content-wrapper {
+    flex: 1; /* Ýçerik alaný header ve footer arasýný kapsar */
+    background-image: url('/images/barbershop.webp'); /* Arka plan resmi */
+    background-size: cover; /* Ekraný kaplayacak þekilde */
+    background-repeat: no-repeat; /* Tekrarlama yok */
+    background-position: center; /* Ortala */
+}
+
