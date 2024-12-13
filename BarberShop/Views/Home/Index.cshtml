@@ -1,8 +1,51 @@
-﻿@{
-    ViewData["Title"] = "Ana Sayfa";
-}
+﻿@model BarberShop.Models.Appointments
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="appointment-form">
+    <form asp-action="Create" asp-controller="Appointments" method="post" class="form-inline">
+        <!-- Ad Soyad -->
+        <div class="form-group">
+            <label asp-for="FullName"></label>
+            <input asp-for="FullName" class="form-control" placeholder="Ad Soyad" />
+        </div>
+
+        <!-- Telefon -->
+        <div class="form-group">
+            <label asp-for="PhoneNumber"></label>
+            <input asp-for="PhoneNumber" class="form-control" placeholder="Telefon" />
+        </div>
+
+        <!-- Hizmet -->
+        <div class="form-group">
+            <label for="service">Hizmet</label>
+            <select id="service" name="service" class="form-control">
+                <option value="sac">Saç Kesimi</option>
+                <option value="sakal">Sakal Tıraşı</option>
+                <option value="bakim">Cilt Bakımı</option>
+            </select>
+        </div>
+
+        <!-- Personel -->
+        <div class="form-group">
+            <label for="personnel">Personel</label>
+            <select id="personnel" name="personnel" class="form-control">
+                <option value="ali">Ali</option>
+                <option value="ahmet">Ahmet</option>
+                <option value="fatma">Fatma</option>
+            </select>
+        </div>
+
+        <!-- Tarih ve Saat -->
+        <div class="form-group">
+            <label asp-for="Date"></label>
+            <input asp-for="Date" class="form-control" type="date" />
+            <label asp-for="Time"></label>
+            <input asp-for="Time" class="form-control" type="time" />
+        </div>
+
+        <!-- Gönder Butonu -->
+        <div class="form-group">
+            <button type="submit" class="btn btn-secondary">Randevu Al</button>
+        </div>
+    </form>
 </div>
+

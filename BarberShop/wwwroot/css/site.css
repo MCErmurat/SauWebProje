@@ -1,23 +1,16 @@
+/* Genel sýfýrlamalar ve box-sizing */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* HTML etiketine min-height: 100% verilir */
 html {
-  font-size: 14px;
+    min-height: 100%;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
-/* Tüm Sayfa Yapýsý */
+/* Sayfa yapýsý */
 body {
     margin: 0;
     padding: 0;
@@ -26,12 +19,68 @@ body {
     height: 100vh; /* Sayfa yüksekliði */
 }
 
-/* Ýçerik Alaný (Arka Plan Resmi Burada) */
+
+
+/* Ýçerik alaný (Arka Plan Resmi) */
 .content-wrapper {
-    flex: 1; /* Ýçerik alaný header ve footer arasýný kapsar */
+    flex: 1; /* Header ve footer arasýndaki alaný doldurur */
     background-image: url('/images/barbershop.webp'); /* Arka plan resmi */
     background-size: cover; /* Ekraný kaplayacak þekilde */
     background-repeat: no-repeat; /* Tekrarlama yok */
-    background-position: center; /* Ortala */
+    background-position: center; /* Ortalar */
+    padding: 20px; /* Ýçeriðe biraz boþluk ekle */
+    display: flex;
+    justify-content: center; /* Yatayda ortalama */
+    align-items: center; /* Dikeyde ortalama */
+    min-height: calc(100vh - 130px); /* Header ve footer yüksekliðini çýkardýk */
 }
 
+/* Form düzenlemeleri */
+.appointment-form form {
+    display: flex;
+    justify-content: center; /* Yatayda ortalar */
+    align-items: center; /* Dikeyde ortalar */
+    width: 100%; /* Form geniþliðini sýnýrlamadan tam yapalým */
+    flex-wrap: wrap; /* Mobilde form elemanlarý alt alta gelsin */
+    gap: 10px; /* Elemanlar arasýnda boþluk */
+}
+
+/* Form grup düzenlemeleri */
+.form-group {
+    display: flex;
+    flex-direction: column; /* Label ve inputlarý dikey hizala */
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+    min-width: 150px; /* Sabit geniþlik saðla */
+    flex: 1;
+}
+.appointment-form .form-control {
+    background-color:antiquewhite;
+    color: #333; /* Yazý rengi */
+    border: 1px solid #ddd; /* Kenarlýk rengi */
+    padding: 10px; /* Ýç boþluk */
+    border-radius: 5px; /* Yuvarlatýlmýþ kenarlar */
+}
+
+/* Input, select ve button düzenlemeleri */
+input, select, button {
+    width: 100%; /* Elemanlarýn çerçeveye uymasýný saðla */
+    margin-top: 5px; /* Label ile eleman arasýnda boþluk býrak */
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* Buton stil */
+button {
+    border: 2px solid black;
+    background-color: bisque;
+    color: black;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    button:hover {
+        background-color: black;
+        color: white;
+    }
