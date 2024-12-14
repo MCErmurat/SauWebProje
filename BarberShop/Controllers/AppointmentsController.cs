@@ -1,6 +1,7 @@
 ﻿using BarberShop.Models;
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace BarberShop.Controllers
 {
     public class AppointmentsController : Controller
@@ -22,10 +23,5 @@ namespace BarberShop.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        // Başarı sayfası
-        public IActionResult Success()
-        {
-            return View();
-        }
     }
 }

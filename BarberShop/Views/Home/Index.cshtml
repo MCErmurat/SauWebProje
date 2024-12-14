@@ -2,12 +2,14 @@
 
 <div class="appointment-form">
     <form asp-action="BekleyenRandevu" asp-controller="Appointments" method="post" class="form-inline">
+
         <!-- Ad Soyad -->
         <div class="form-group">
             <label asp-for="FullName"></label>
             <input asp-for="FullName" class="form-control" placeholder="Ad Soyad" />
             <span asp-validation-for="FullName" class="text-danger"></span>
         </div>
+
 
         <!-- Telefon -->
         <div class="form-group">
@@ -35,13 +37,13 @@
                 <option value="fatma">Fatma</option>
             </select>
         </div>
-
+        @{
+            string minDateTime = DateTime.Now.ToString("yyyy-MM-ddTHH:mm");
+        }
         <!-- Tarih ve Saat -->
         <div class="form-group">
             <label asp-for="Date"></label>
-            <input asp-for="Date" class="form-control" type="date" />
-            <label asp-for="Time"></label>
-            <input asp-for="Time" class="form-control" type="time" />
+            <input asp-for="Date" class="form-control" min="@minDateTime" />
             <span asp-validation-for="Date" class="text-danger"></span>
         </div>
 
@@ -51,4 +53,10 @@
         </div>
     </form>
 </div>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
 
