@@ -5,25 +5,21 @@ namespace BarberShop.Controllers
 {
     public class AppointmentsController : Controller
     {
-        // Randevu formunu göster
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // Randevu formunu gönder
+       
         [HttpPost]
-        public IActionResult Create(Appointments appointment)
+        public IActionResult BekleyenRandevu(Appointments appointment)
         {
             if (ModelState.IsValid)
             {
                 // Burada randevuyu veri tabanına kaydedebilirsiniz.
                 // Örnek: _context.Appointments.Add(appointment);
                 // _context.SaveChanges();
-
-                return RedirectToAction("Success");
+                TempData["success"] = "Randevu isteğiniz gönderildi!";
+                
+                return RedirectToAction("Index", "Home");
             }
-            return View(appointment);
+            TempData["error"] = "Randevu isteğiniz başarısız, lütfen tekrar deneyin!";
+            return RedirectToAction("Index", "Home");
         }
 
         // Başarı sayfası
