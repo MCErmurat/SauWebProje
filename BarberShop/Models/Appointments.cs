@@ -14,7 +14,7 @@ namespace BarberShop.Models
         public string FullName { get; set; }
 
         [Required(ErrorMessage = "Telefon numarası zorunludur.")]
-        [RegularExpression(@"^\+?[0-9]{10,15}$", ErrorMessage = "Geçerli bir telefon numarası giriniz.")]
+        [RegularExpression(@"^(?:\+90|0)(?:5\d{2}|3\d{2}|4\d{2}|5\d{2}|7\d{2})\d{7}$", ErrorMessage = "Geçerli bir telefon numarası giriniz.")]
         [Phone]
         [Display(Name = "Telefon Numarası")]
         public string PhoneNumber { get; set; }
