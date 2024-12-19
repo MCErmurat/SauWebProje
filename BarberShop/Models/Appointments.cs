@@ -4,6 +4,7 @@ namespace BarberShop.Models
 {
     public class Appointments
     {
+        public int Id { get; set; }
 
 
 		[Required(ErrorMessage = "Lütfen isim alanını boş bırakmayınız!")]
@@ -14,7 +15,7 @@ namespace BarberShop.Models
         public string FullName { get; set; }
 
         [Required(ErrorMessage = "Telefon numarası zorunludur.")]
-        [RegularExpression(@"^(?:\+90|0)(?:5\d{2}|3\d{2}|4\d{2}|5\d{2}|7\d{2})\d{7}$", ErrorMessage = "Geçerli bir telefon numarası giriniz.")]
+        [RegularExpression(@"^(?:\+90\s?)?(?:\((\d{3})\)\s?|\d{3})\d{3}[-]?\d{2}[-]?\d{2}$", ErrorMessage = "Geçerli bir telefon numarası giriniz.")]
         [Phone]
         [Display(Name = "Telefon Numarası")]
         public string PhoneNumber { get; set; }

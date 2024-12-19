@@ -6,6 +6,8 @@ namespace BarberShop.Controllers
 {
     public class HomeController : Controller
     {
+        BarberContext b=new BarberContext();
+        
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
@@ -15,7 +17,14 @@ namespace BarberShop.Controllers
 
         public IActionResult Index()
         {
-            return View();
+
+            var model = new RandevuViewModel
+            {
+                Hizmetler = b.Hizmetler.ToList(), // Hizmetler listesini doldur
+                Personeller=b.Personeller.ToList(),
+                Appointment = new Appointments(), // Boş bir Appointment nesnesi oluştur
+            };
+            return View(model);
         }
 
         public IActionResult Privacy()
