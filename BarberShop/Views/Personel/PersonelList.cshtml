@@ -33,21 +33,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => personel.PersonelSoyad)
                 </td>
-                <td>
-                    @if (personel.Hizmetler.Any())
-                    {
-                        <ul>
-                            @foreach (var hizmet in personel.Hizmetler)
-                            {
-                                <li>@hizmet.Ad - @hizmet.Ucret TL</li>
-                            }
-                        </ul>
-                    }
-                    else
-                    {
-                        <span>Hizmet yok</span>
-                    }
-                </td>
+                
             </tr>
         }
     </tbody>

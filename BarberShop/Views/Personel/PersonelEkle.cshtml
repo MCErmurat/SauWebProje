@@ -6,20 +6,16 @@
     <div class="col-md-4">
         <form asp-action="PerKaydet">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
             <div class="form-group">
-                <label asp-for="PersonelID" class="control-label"></label>
-                <input asp-for="PersonelID" class="form-control" />
-                <span asp-validation-for="PersonelID" class="text-danger"></span>
+                <label asp-for="@Model.PersonelAd" class="control-label"></label>
+                <input asp-for="@Model.PersonelAd" class="form-control" />
+                <span asp-validation-for="@Model.PersonelAd" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PersonelAd" class="control-label"></label>
-                <input asp-for="PersonelAd" class="form-control" />
-                <span asp-validation-for="PersonelAd" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PersonelSoyad" class="control-label"></label>
-                <input asp-for="PersonelSoyad" class="form-control" />
-                <span asp-validation-for="PersonelSoyad" class="text-danger"></span>
+                <label asp-for="@Model.PersonelSoyad" class="control-label"></label>
+                <input asp-for="@Model.PersonelSoyad" class="form-control" />
+                <span asp-validation-for="@Model.PersonelSoyad" class="text-danger"></span>
             </div>
             <div id="hizmetler-container">
                 <h4>Hizmetler</h4>

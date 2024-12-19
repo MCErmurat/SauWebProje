@@ -1,51 +1,63 @@
-﻿@model BarberShop.Models.Appointments
+﻿@model RandevuViewModel
 
 <div class="appointment-form">
     <form asp-action="BekleyenRandevu" asp-controller="Appointments" method="post" class="form-inline">
 
         <!-- Ad Soyad -->
         <div class="form-group">
-            <label asp-for="FullName"></label>
-            <input asp-for="FullName" class="form-control" placeholder="Ad Soyad" />
-            <span asp-validation-for="FullName" class="text-danger"></span>
+            <label asp-for="Appointment.FullName"></label>
+            <input asp-for="Appointment.FullName" class="form-control" placeholder="Ad Soyad" />
+            <span asp-validation-for="Appointment.FullName" class=" text-danger"></span>
         </div>
 
 
         <!-- Telefon -->
         <div class="form-group">
-            <label asp-for="PhoneNumber"></label>
-            <input asp-for="PhoneNumber" class="form-control" placeholder="+90(5xx)xxx-xx-xx"/>
-            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            <label asp-for="Appointment.PhoneNumber"></label>
+            <input asp-for="Appointment.PhoneNumber" class="form-control" placeholder="+90(5xx)xxx-xx-xx" id="phone" />
+            <span asp-validation-for="Appointment.PhoneNumber" class="text-danger"></span>
         </div>
 
         <!-- Hizmet -->
         <div class="form-group">
-            <label for="service">Hizmet</label>
-            <select id="service" name="service" class="form-control">
-                <option value="sac">Saç Kesimi</option>
-                <option value="sakal">Sakal Tıraşı</option>
-                <option value="bakim">Cilt Bakımı</option>
+            <label asp-for="Appointment.HizmetId">Hizmet</label>
+            <select asp-for="Appointment.HizmetId" id="hizmet" class="form-control">
+                <option selected disabled>Hizmet Seçiniz</option>
+                @foreach (var hizmet in Model.Hizmetler)
+                {
+                    <option value="@hizmet.Id">@hizmet.Ad</option>
+                }
             </select>
         </div>
 
         <!-- Personel -->
         <div class="form-group">
-            <label for="personnel">Personel</label>
-            <select id="personnel" name="personnel" class="form-control">
-                <option value="ali">Ali</option>
-                <option value="ahmet">Ahmet</option>
-                <option value="fatma">Fatma</option>
+            <label asp-for="Appointment.PersonelId">Personel</label>
+            <select asp-for="Appointment.PersonelId" id="personel" class="form-control">
+                <option selected disabled>Personel Seçiniz</option>
             </select>
         </div>
-        @{
-            string minDateTime = DateTime.Now.ToString("yyyy-MM-ddTHH:mm");
-        }
-        <!-- Tarih ve Saat -->
+
+
         <div class="form-group">
-            <label asp-for="Date"></label>
-            <input asp-for="Date" class="form-control" min="@minDateTime" />
-            <span asp-validation-for="Date" class="text-danger"></span>
+            <label asp-for="Appointment.Tarih"></label>
+            <select asp-for="Appointment.Tarih" id="tarih" class="form-control">
+                <option selected disabled>Tarih Seçiniz</option>
+                @foreach (var date in ViewBag.NextSevenDays as List<DateTime>)
+                {
+                    <option value="@date.ToString("yyyy-MM-dd")">@date.ToString("dd MMM yyyy")</option>
+                }
+            </select>
         </div>
+
+        <div class="form-group">
+            <label asp-for="Appointment.Saat">Saat Seçiniz</label>
+            <select asp-for="Appointment.Saat" id="saat" class="form-control">
+                <option selected disabled>Saat Seçiniz</option>
+                </select>
+        </div>
+
+
 
         <!-- Gönder Butonu -->
         <div class="form-group">
@@ -54,9 +66,84 @@
     </form>
 </div>
 
-@section Scripts{
+@section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-}
 
+    <script>
+        document.getElementById("hizmet").addEventListener("change", function () {
+            const hizmetId = this.value; // Seçilen Hizmet ID
+            const personelSelect = document.getElementById("personel");
+
+            // Mevcut seçenekleri temizle
+            personelSelect.innerHTML = "<option selected disabled>Personel Seçiniz</option>";
+
+            // Ajax ile personel listesini al
+            fetch(`/Home/GetPersonelByHizmet?hizmetId=${hizmetId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length > 0) {
+                        data.forEach(personel => {
+                            const option = document.createElement("option");
+                            option.value = personel.personelId;
+                            option.textContent = personel.personelAd;
+                            personelSelect.appendChild(option);
+                        });
+                    } else {
+                        personelSelect.innerHTML = "<option selected disabled>Uygun personel bulunamadı</option>";
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    </script>
+   <script>
+        document.getElementById("personel").addEventListener("change", updateAvailableHours);
+        document.getElementById("tarih").addEventListener("change", updateAvailableHours);
+
+        function updateAvailableHours() {
+            const personelId = document.getElementById("personel").value; // Seçilen personel ID
+            const tarih = document.getElementById("tarih").value; // Seçilen tarih
+            const saatSelect = document.getElementById("saat");
+
+            if (!personelId || !tarih) {
+                return; // Personel veya tarih seçilmemişse saatleri güncellemeye gerek yok
+            }
+
+            // Saat seçeneklerini temizle
+            saatSelect.innerHTML = "<option selected disabled>Saat Seçiniz</option>";
+
+            // 9:00 - 19:00 arası saatler ekleyelim
+            const allHours = [];
+            for (let hour = 9; hour <= 19; hour++) {
+                allHours.push(hour);
+            }
+
+            // Dolu saatleri al
+            fetch(`/Home/GetAvailableHours?personelId=${personelId}&tarih=${tarih}`)
+                .then(response => response.json())
+                .then(doluSaatler => {
+                    // Öncelikle tüm saatleri ekleyelim
+                    allHours.forEach(hour => {
+                        const option = document.createElement("option");
+                        option.value = `${hour.toString().padStart(2, '0')}:00:00`; // Backend'e uygun format
+                        option.textContent = `${hour}:00`;
+
+                        // Eğer saat dolu değilse, saat seçeneğini ekle
+                        if (!doluSaatler.includes(hour)) {
+                            saatSelect.appendChild(option);
+                        } else {
+                            option.disabled = true; // Dolu saatleri devre dışı bırak
+                        }
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+
+
+
+	</script>
+
+    
+}
