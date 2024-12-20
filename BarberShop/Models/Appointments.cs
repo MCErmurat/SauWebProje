@@ -14,20 +14,26 @@ namespace BarberShop.Models
         public string FullName { get; set; }
 
         [Required(ErrorMessage = "Telefon numarası zorunludur.")]
-        [RegularExpression(@"^(?:\+90\s?)?(?:\((\d{3})\)\s?|\d{3})\d{3}[-]?\d{2}[-]?\d{2}$", ErrorMessage = "Geçerli bir telefon numarası giriniz.")]
+        [RegularExpression(@"^(?:\(?(\d{3})\)?\s?)?\d{3}[-]?\d{2}[-]?\d{2}$", ErrorMessage = "Geçerli bir telefon numarası giriniz.")]
+
         [Phone]
         [Display(Name = "Telefon Numarası")]
         public string PhoneNumber { get; set; }
 
-        [Required(ErrorMessage = "Lütfen geçerli tarih ve saat giriniz!")]
+        [Required(ErrorMessage = "Lütfen geçerli tarih giriniz!")]
         [Display(Name = "Randevu Tarihi")]
         public DateOnly Tarih { get; set; }
-
+        [Required(ErrorMessage = "Lütfen geçerli saat giriniz!")]
+        [Display(Name = "Randevu Saati")]
         public TimeSpan Saat { get; set; }
 
+        [Required(ErrorMessage = "Lütfen bir hizmet seçiniz!")]
+        [Display(Name = "Hizmet")]
         public int HizmetId { get; set; }
         public Hizmet? Hizmet { get; set; }
 
+        [Required(ErrorMessage = "Lütfen bir personel seçiniz!")]
+        [Display(Name = "Personel")]
         public int PersonelId { get; set; }
         public Personel? Personel { get; set; }
     }

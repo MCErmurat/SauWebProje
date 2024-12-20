@@ -14,7 +14,7 @@
         <!-- Telefon -->
         <div class="form-group">
             <label asp-for="Appointment.PhoneNumber"></label>
-            <input asp-for="Appointment.PhoneNumber" class="form-control" placeholder="+90(5xx)xxx-xx-xx" id="phone" />
+            <input asp-for="Appointment.PhoneNumber" class="form-control" placeholder="(5xx)xxx-xx-xx" id="phone" />
             <span asp-validation-for="Appointment.PhoneNumber" class="text-danger"></span>
         </div>
 
@@ -28,6 +28,7 @@
                     <option value="@hizmet.Id">@hizmet.Ad</option>
                 }
             </select>
+            <span asp-validation-for="Appointment.HizmetId" class="text-danger"></span>
         </div>
 
         <!-- Personel -->
@@ -36,6 +37,7 @@
             <select asp-for="Appointment.PersonelId" id="personel" class="form-control">
                 <option selected disabled>Personel Seçiniz</option>
             </select>
+            <span asp-validation-for="Appointment.PersonelId" class="text-danger"></span>
         </div>
 
 
@@ -48,6 +50,7 @@
                     <option value="@date.ToString("yyyy-MM-dd")">@date.ToString("dd MMM yyyy")</option>
                 }
             </select>
+            <span asp-validation-for="Appointment.Tarih" class="text-danger"></span>
         </div>
 
         <div class="form-group">
@@ -55,6 +58,7 @@
             <select asp-for="Appointment.Saat" id="saat" class="form-control">
                 <option selected disabled>Saat Seçiniz</option>
                 </select>
+            <span asp-validation-for="Appointment.Saat" class="text-danger"></span>
         </div>
 
 
@@ -97,7 +101,7 @@
                 .catch(error => console.error('Error:', error));
         });
     </script>
-   <script>
+    <script>
         document.getElementById("personel").addEventListener("change", updateAvailableHours);
         document.getElementById("tarih").addEventListener("change", updateAvailableHours);
 
@@ -119,6 +123,11 @@
                 allHours.push(hour);
             }
 
+            // Şu anki zamanı al
+            const now = new Date();
+            const currentHour = (now.getHours()+1);
+            const currentDate = now.toISOString().split("T")[0]; // YYYY-MM-DD formatında
+
             // Dolu saatleri al
             fetch(`/Home/GetAvailableHours?personelId=${personelId}&tarih=${tarih}`)
                 .then(response => response.json())
@@ -129,21 +138,17 @@
                         option.value = `${hour.toString().padStart(2, '0')}:00:00`; // Backend'e uygun format
                         option.textContent = `${hour}:00`;
 
-                        // Eğer saat dolu değilse, saat seçeneğini ekle
-                        if (!doluSaatler.includes(hour)) {
+                        // Eğer saat dolu değilse ve şu anki saatten büyük ya da farklı bir tarihteyse, saat seçeneğini ekle
+                        if (!doluSaatler.includes(hour) && (tarih !== currentDate || hour >= currentHour)) {
                             saatSelect.appendChild(option);
                         } else {
-                            option.disabled = true; // Dolu saatleri devre dışı bırak
+                            option.disabled = true; // Dolu ya da geçmiş saatleri devre dışı bırak
                         }
                     });
                 })
                 .catch(error => console.error('Error:', error));
         }
-
-
-
-
-	</script>
+    </script>
 
     
 }
