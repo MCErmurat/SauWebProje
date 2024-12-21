@@ -1,0 +1,56 @@
+﻿@model BarberShop.Models.PersonelEkleViewModel
+
+@{
+    ViewData["Title"] = "Personel Ekle";
+}
+
+<h1>Personel Ekle</h1>
+
+<form asp-action="PersonelEkle" method="post">
+    <div class="form-group">
+        <label asp-for="PersonelAd" class="control-label"></label>
+        <input asp-for="PersonelAd" class="form-control" />
+        <span asp-validation-for="PersonelAd" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PersonelSoyad" class="control-label"></label>
+        <input asp-for="PersonelSoyad" class="form-control" />
+        <span asp-validation-for="PersonelSoyad" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PersonelDurum" class="control-label"></label>
+        <input asp-for="PersonelDurum" class="form-check-input" type="checkbox" />
+        <span asp-validation-for="PersonelDurum" class="text-danger"></span>
+    </div>
+
+    <h4>Hizmetler</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Hizmet Adı</th>
+                <th>Ücret</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Hizmetler.Count; i++)
+            {
+                <tr>
+                    <td>
+                        @Model.Hizmetler[i].HizmetAd
+                    </td>
+                    <td>
+                        <input asp-for="@Model.Hizmetler[i].Ucret" class="form-control" />
+                        <span asp-validation-for="@Model.Hizmetler[i].Ucret" class="text-danger"></span>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <button type="submit" class="btn btn-primary">Kaydet</button>
+    <a asp-action="PersonelList" class="btn btn-secondary">Listeye Dön</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

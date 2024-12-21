@@ -1,0 +1,53 @@
+﻿@model IEnumerable<BarberShop.Models.Personel>
+
+@{
+    ViewData["Title"] = "PersonelList";
+}
+
+<h1>Personel Listesi</h1>
+
+<p>
+    <a asp-action="PersonelEkle">Ekle</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Personel Adı</th>
+            <th>Personel Soyadı</th>
+            <th>Durum</th>
+            <th>Hizmetler ve Ücretler</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var personel in Model)
+        {
+            <tr>
+                <td>@personel.PersonelAd</td>
+                <td>@personel.PersonelSoyad</td>
+                <td>@(personel.PersonelDurum ? "Aktif" : "Pasif")</td>
+                <td>
+                    @if (personel.PersonelHizmetler != null && personel.PersonelHizmetler.Any())
+                    {
+                        <ul>
+                            @foreach (var hizmet in personel.PersonelHizmetler)
+                            {
+                                <li>@hizmet.Hizmet.Ad - @hizmet.Ucret.ToString("C2")</li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <span>Hizmet bulunamadı</span>
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@personel.PersonelID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@personel.PersonelID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@personel.PersonelID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

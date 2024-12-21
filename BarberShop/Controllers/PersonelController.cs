@@ -5,7 +5,7 @@ namespace BarberShop.Controllers
 {
     public class PersonelController : Controller
     {
-        static List<Personel> personeller = new List<Personel>();
+        /*static List<Personel> personeller = new List<Personel>();
         public IActionResult PersonelEkle()
         {
             return View();
@@ -27,7 +27,7 @@ namespace BarberShop.Controllers
 
         public IActionResult PersonelList()
         {
-            return View(personeller);
-        }
+            return View();
+        }*/
     }
 }
