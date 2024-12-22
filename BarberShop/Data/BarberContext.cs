@@ -19,5 +19,6 @@ namespace BarberShop.Data
         {
             optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=BarberShop;Trusted_Connection=True;");
         }
+        public DbSet<BarberShop.Models.PersonelEkleViewModel> PersonelEkleViewModel { get; set; } = default!;
     }
 }

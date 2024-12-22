@@ -1,5 +1,19 @@
 ﻿@model BarberShop.Models.PersonelEkleViewModel
-
+@if (TempData["HataMesajlari"] != null)
+{
+    var hataMesajlari = TempData["HataMesajlari"] as List<string>;
+    if (hataMesajlari != null && hataMesajlari.Any())
+    {
+        <div class="alert alert-danger">
+            <ul>
+                @foreach (var mesaj in hataMesajlari)
+                {
+                    <li>@mesaj</li>
+                }
+            </ul>
+        </div>
+    }
+}
 @{
     ViewData["Title"] = "Personel Ekle";
 }
@@ -7,48 +21,61 @@
 <h1>Personel Ekle</h1>
 
 <form asp-action="PersonelEkle" method="post">
-    <div class="form-group">
-        <label asp-for="PersonelAd" class="control-label"></label>
-        <input asp-for="PersonelAd" class="form-control" />
-        <span asp-validation-for="PersonelAd" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="PersonelSoyad" class="control-label"></label>
-        <input asp-for="PersonelSoyad" class="form-control" />
-        <span asp-validation-for="PersonelSoyad" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="PersonelDurum" class="control-label"></label>
-        <input asp-for="PersonelDurum" class="form-check-input" type="checkbox" />
-        <span asp-validation-for="PersonelDurum" class="text-danger"></span>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="PersonelAd">Adı</label>
+                <input asp-for="PersonelAd" class="form-control" />
+                <span asp-validation-for="PersonelAd" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="PersonelSoyad">Soyadı</label>
+                <input asp-for="PersonelSoyad" class="form-control" />
+                <span asp-validation-for="PersonelSoyad" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="PersonelDurum">Durum</label>
+                <input asp-for="PersonelDurum" class="form-check-input" type="checkbox" />
+                <span asp-validation-for="PersonelDurum" class="text-danger"></span>
+            </div>
+        </div>
     </div>
 
     <h4>Hizmetler</h4>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Hizmet Adı</th>
-                <th>Ücret</th>
-            </tr>
-        </thead>
-        <tbody>
-            @for (int i = 0; i < Model.Hizmetler.Count; i++)
-            {
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
                 <tr>
-                    <td>
-                        @Model.Hizmetler[i].HizmetAd
-                    </td>
-                    <td>
-                        <input asp-for="@Model.Hizmetler[i].Ucret" class="form-control" />
-                        <span asp-validation-for="@Model.Hizmetler[i].Ucret" class="text-danger"></span>
-                    </td>
+                    <th>Hizmet Adı</th>
+                    <th>Ücret</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Hizmetler.Count; i++)
+                {
+                    <tr>
+                        <td>
+                            @Model.Hizmetler[i].HizmetAd
+                        </td>
+                        <td>
+                            <input type="hidden" asp-for="Hizmetler[@i].HizmetId" />
+                            <input asp-for="Hizmetler[@i].Ucret" class="form-control" type="number" step="0.01" />
+                            <span asp-validation-for="Hizmetler[@i].Ucret" class="text-danger"></span>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 
-    <button type="submit" class="btn btn-primary">Kaydet</button>
-    <a asp-action="PersonelList" class="btn btn-secondary">Listeye Dön</a>
+    <div class="form-group text-right">
+        <button type="submit" class="btn btn-primary">Kaydet</button>
+        <a asp-action="PersonelList" class="btn btn-secondary">Listeye Dön</a>
+    </div>
 </form>
 
 @section Scripts {

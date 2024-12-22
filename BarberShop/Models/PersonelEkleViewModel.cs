@@ -6,6 +6,7 @@ namespace BarberShop.Models
 {
     public class PersonelEkleViewModel
     {
+        [Key]
         public int PersonelId { get; set; }
 
         [Required(ErrorMessage = "Personel adı zorunludur.")]
@@ -19,12 +20,5 @@ namespace BarberShop.Models
         public List<HizmetSecimViewModel> Hizmetler { get; set; } = new List<HizmetSecimViewModel>();
     }
 
-    public class HizmetSecimViewModel
-    {
-        public int HizmetId { get; set; }
-        public string HizmetAd { get; set; }
-
-        [Column(TypeName = "decimal(18,2)")]
-        public decimal Ucret { get; set; } // Bu, PersonelHizmet'teki ücret olacak
-    }
+   
 }
