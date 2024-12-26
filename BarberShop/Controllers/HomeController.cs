@@ -11,14 +11,14 @@ namespace BarberShop.Controllers
 
     public class HomeController : Controller
     {
-        BarberContext b = new BarberContext();
-
+        private readonly BarberContext b;
         private readonly ILogger<HomeController> _logger;
+        
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, BarberContext context)
         {
             _logger = logger;
-
+            b = context;
 
         }
 

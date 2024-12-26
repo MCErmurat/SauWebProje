@@ -8,7 +8,12 @@ namespace BarberShop.Controllers
 {
     public class AppointmentsController : Controller
     {
-        BarberContext _context=new BarberContext();
+        private readonly BarberContext _context;
+
+        public AppointmentsController(BarberContext context)
+        {
+            _context = context;
+        }
 
 
         [HttpPost]

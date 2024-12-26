@@ -1,13 +1,19 @@
 ﻿using BarberShop.Data;
 using BarberShop.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace BarberShop.Controllers
 {
+    [Authorize(Roles=SD.Role_Admin)]
     public class AdminController : Controller
     {
-        BarberContext _context=new BarberContext();
+        private readonly BarberContext _context;
+        public AdminController(BarberContext context)
+        {
+            _context = context;
+        }
         public IActionResult Index()
         {
             return View();
