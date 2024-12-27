@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - Admin Paneli</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .sidebar {
+            background-color: #343a40;
+            color: white;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            padding-top: 20px;
+        }
+
+            .sidebar a {
+                color: white;
+                padding: 10px 15px;
+                display: block;
+                text-decoration: none;
+                border-bottom: 1px solid #575757;
+            }
+
+                .sidebar a:hover {
+                    background-color: #495057;
+                }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        .header {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <h3 class="text-center text-white">Admin Paneli</h3>
+        <a href="/admin" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a asp-area="" asp-controller="Admin" asp-action="PersonelList">
+            <i class="fas fa-users"></i> Personel Yönetimi
+        </a>
+        <a asp-controller="Appointments" asp-action="Randevular"><i class="fas fa-calendar-check"></i> Randevu Yönetimi</a>
+        <a asp-controller="Admin" asp-action="UserList"><i class="fas fa-calendar-check"></i> Kullanıcılar</a>
+        
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <h2>@ViewData["Title"]</h2>
+            <div>
+                <span>Admin</span> | <a asp-area="Identity" asp-page="/Account/Logout" class="text-white">Çıkış</a>
+            </div>
+        </div>
+
+        <div class="container mt-4">
+            @RenderBody()
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.8/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

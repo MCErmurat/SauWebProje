@@ -36,5 +36,7 @@ namespace BarberShop.Models
         [Display(Name = "Personel")]
         public int PersonelId { get; set; }
         public Personel? Personel { get; set; }
+
+        public bool Onayli { get; set; }
     }
 }

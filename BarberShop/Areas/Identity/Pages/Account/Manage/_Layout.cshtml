@@ -1,5 +1,5 @@
 ﻿@{
-    if (ViewData.TryGetValue("ParentLayout", out var parentLayout) && parentLayout !=  null)
+    if (ViewData.TryGetValue("ParentLayout", out var parentLayout) && parentLayout != null)
     {
         Layout = parentLayout.ToString();
     }
@@ -9,17 +9,22 @@
     }
 }
 
-<h1>Manage your account</h1>
+<h1>Manage Your Account</h1>
 
-<div>
-    <h2>Change your account settings</h2>
+<div class="container">
+    <h2>Change Your Account Settings</h2>
     <hr />
+
+    <!-- İki kolona ayırıyoruz: Sol Kısım (Navigasyon) ve Sağ Kısım (Ana İçerik) -->
     <div class="row">
-        <div class="col-md-3">
+        <!-- Sol Menü (Navigasyon) -->
+        <div class="col-md-4">
             <partial name="_ManageNav" />
         </div>
-        <div class="col-md-9">
-            @RenderBody()
+
+        <!-- Sağ İçerik Bölümü -->
+        <div class="col-md-7">
+            @RenderBody() <!-- Bu kısım sayfa içeriğini render eder -->
         </div>
     </div>
 </div>
