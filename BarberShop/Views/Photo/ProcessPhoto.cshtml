@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Fotoğraf Düzenleme";
+    var imageUrls = ViewData["ImageUrls"] as List<string>;
+}
+
+<h2>Fotoğraf Düzenleme</h2>
+
+<form enctype="multipart/form-data" method="post" action="/api/photo/process">
+    <div class="form-group">
+        <label for="file">Fotoğraf Yükleyin:</label>
+        <input type="file" name="file" id="file" class="form-control" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Fotoğrafı Düzenle</button>
+</form>
+
+<hr />
+
+@if (imageUrls != null && imageUrls.Count > 0)
+{
+    <h3>İşlenmiş Fotoğraflar</h3>
+    <div class="image-gallery">
+        @foreach (var imageUrl in imageUrls)
+        {
+            <div class="image-item">
+                <img src="@imageUrl" alt="Generated Image" />
+            </div>
+        }
+    </div>
+
+}

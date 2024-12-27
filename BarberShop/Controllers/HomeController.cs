@@ -69,11 +69,6 @@ namespace BarberShop.Controllers
             return Json(doluSaatler); // Dolu saatleri JSON olarak döndürüyoruz
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
         public IActionResult Hakkimizda()
         {
             return View();

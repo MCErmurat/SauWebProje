@@ -9,6 +9,7 @@ var connectionString = builder.Configuration.GetConnectionString("Default") ?? t
 
 builder.Services.AddDbContext<BarberContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddRazorPages();
+builder.Services.AddHttpClient();
 builder.Services.AddIdentity<IdentityUser,IdentityRole>().AddEntityFrameworkStores<BarberContext>().AddDefaultTokenProviders();
 builder.Services.ConfigureApplicationCookie(options =>
 {
