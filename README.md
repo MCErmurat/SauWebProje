@@ -1,4 +1,4 @@
-# Berber Randevu ve Yapay Zeka Destekli Yönetim Sistemi
+# Berber Randevu Yönetim Sistemi
 
 ## Proje Tanımı
 Bu proje, ASP.NET Core MVC kullanılarak geliştirilmiş bir berber randevu ve yönetim sistemidir. Proje, kullanıcıların kolayca randevu oluşturmasını sağlarken, yapay zeka desteğiyle kullanıcıların kendilerini farklı saç ve sakal modelleriyle görmelerine olanak tanır. Aynı zamanda, admin paneli üzerinden hizmetler, personeller ve randevuların yönetimi sağlanır.
