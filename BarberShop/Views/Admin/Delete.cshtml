@@ -1,0 +1,20 @@
+﻿@model BarberShop.Models.Personel
+
+@{
+    ViewData["Title"] = "Personel Sil";
+}
+
+<h1>Personel Sil</h1>
+
+<div class="alert alert-danger">
+    <p><strong>Uyarı!</strong> Bu personeli silmek istediğinize emin misiniz?</p>
+    <p>Adı: <strong>@Model.PersonelAd</strong></p>
+    <p>Soyadı: <strong>@Model.PersonelSoyad</strong></p>
+</div>
+
+<form asp-action="DeleteConfirmed" asp-route-id="@Model.PersonelID" method="post">
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-danger">Sil</button>
+    <a asp-action="PersonelList" class="btn btn-secondary">İptal</a>
+</form>
+

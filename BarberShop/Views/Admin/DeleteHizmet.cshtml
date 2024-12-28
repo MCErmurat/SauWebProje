@@ -1,0 +1,18 @@
+﻿@model BarberShop.Models.Hizmet
+
+@{
+    ViewData["Title"] = "Hizmet Sil";
+}
+
+<h1>Hizmet Sil</h1>
+
+<div class="alert alert-danger">
+    <p><strong>Uyarı!</strong> Bu hizmeti silmek istediğinize emin misiniz?</p>
+    <p>Hizmet Adı: <strong>@Model.Ad</strong></p>
+</div>
+
+<form asp-action="DeleteConfirmedHizmet" asp-route-id="@Model.Id" method="post">
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-danger">Sil</button>
+    <a asp-action="HizmetList" class="btn btn-secondary">İptal</a>
+</form>
