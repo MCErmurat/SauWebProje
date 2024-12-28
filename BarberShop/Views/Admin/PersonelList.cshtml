@@ -4,7 +4,7 @@
     ViewData["Title"] = "PersonelList";
 }
 
-<h1>Personel Listesi</h1>
+<h1>Personel İşlemleri</h1>
 
 <p>
     <a asp-action="PersonelEkle" class="btn btn-success">Personel Ekle</a>
@@ -43,8 +43,6 @@
                     }
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@personel.PersonelID" class="btn btn-warning btn-sm">Düzenle</a>
-                    <a asp-action="Details" asp-route-id="@personel.PersonelID" class="btn btn-info btn-sm">Detaylar</a>
                     <a asp-action="Delete" asp-route-id="@personel.PersonelID" class="btn btn-danger btn-sm">Sil</a>
                 </td>
             </tr>

@@ -1,0 +1,44 @@
+﻿@model BarberShop.Models.Hizmet
+
+@{
+    ViewData["Title"] = "Hizmet Ekle";
+}
+
+<h1 style="text-align: center;">Hizmet Ekle</h1>
+
+@if (TempData["HataMesajlari"] != null)
+{
+    var hataMesajlari = TempData["HataMesajlari"] as List<string>;
+    if (hataMesajlari != null && hataMesajlari.Any())
+    {
+        <div class="alert alert-danger">
+            <ul>
+                @foreach (var mesaj in hataMesajlari)
+                {
+                    <li>@mesaj</li>
+                }
+            </ul>
+        </div>
+    }
+}
+
+<form asp-action="HizmetEkle" method="post">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Ad" class="control-label">Hizmet Adı</label>
+                <input asp-for="Ad" class="form-control" />
+                <span asp-validation-for="Ad" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group text-right mt-3">
+        <button type="submit" class="btn btn-primary">Kaydet</button>
+        <a asp-action="HizmetList" class="btn btn-secondary">Listeye Dön</a>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
