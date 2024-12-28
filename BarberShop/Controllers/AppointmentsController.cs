@@ -1,11 +1,13 @@
 ﻿using BarberShop.Data;
 using BarberShop.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 
 namespace BarberShop.Controllers
 {
+    
     public class AppointmentsController : Controller
     {
         private readonly BarberContext _context;
@@ -15,6 +17,7 @@ namespace BarberShop.Controllers
             _context = context;
         }
 
+        [Authorize(Roles = SD.Role_Admin)]
         [HttpGet]
         public IActionResult Randevular()
         {
@@ -27,6 +30,7 @@ namespace BarberShop.Controllers
             return View(randevular);
         }
 
+        [Authorize(Roles = SD.Role_Admin)]
         [HttpPost]
         public IActionResult Onayla(int id)
         {
@@ -72,6 +76,8 @@ namespace BarberShop.Controllers
             return RedirectToAction("Randevular");
         }
 
+        [Authorize(Roles = SD.Role_Admin)]
+
         [HttpPost]
         public IActionResult Sil(int id)
         {
@@ -106,11 +112,7 @@ namespace BarberShop.Controllers
             return RedirectToAction("Randevular");
         }
 
-
-
-
-
-
+        [Authorize(Roles = SD.Role_Admin)]
         public IActionResult OnayliRandevular()
         {
             var onayliRandevular = _context.Randevular

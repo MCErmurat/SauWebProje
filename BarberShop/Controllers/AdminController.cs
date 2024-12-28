@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BarberShop.Controllers
 {
-    //[Authorize(Roles=SD.Role_Admin)]
+    [Authorize(Roles=SD.Role_Admin)]
     public class AdminController : Controller
     {
         private readonly BarberContext _context;
