@@ -47,7 +47,7 @@ namespace BarberShop.Controllers
         public IActionResult GetPersonelByHizmet(int hizmetId)
         {
             var personeller = b.PersonelHizmet
-                .Where(ph => ph.HizmetId == hizmetId)
+				.Where(ph => ph.HizmetId == hizmetId && ph.Personel.PersonelDurum == true)
                 .Select(ph => new
                 {
                     PersonelId = ph.PersonelId,
